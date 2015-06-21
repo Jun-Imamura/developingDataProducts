@@ -4,10 +4,14 @@ shinyUI(fluidPage(
   sidebarLayout(
     fluidRow(
       column(12, offset = 0,
-             HTML("<div align='center'>This data is extracted from Human Development Reports
+             HTML("<div align='center'>This graph shows Gender Inequality Index measured
                   by UNITED NATIONS DEVELOPMENT PROGRAMME </br>
-                  Datasets and further description is available 
+                  Further description for the dataset is available 
                   <a href='http://hdr.undp.org/en/data'>here</a>
+                  <br />
+                  <p>Select index from dropdown list, then push Update View button.
+                  <br />
+                  Dark colored country means there's some inequality between each gender as to selected index.</p>
                   </div>
                   <br />")
       )
