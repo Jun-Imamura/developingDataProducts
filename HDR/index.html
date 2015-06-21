@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Gender Inequality Index</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Gender Inequality Index">
+  <meta name="author" content="Jun Imamura">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="./assets/css/ribbons.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>Gender Inequality Index</h1>
+    <h2>Visualize on GoogleVis GeoCharts</h2>
+    <p>Jun Imamura<br/>Engineer</p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Gender Inequality</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>GII is defined by United Nations, as the index of gender inequalities defined by three important aspects of human development.  </p>
+
+<ol>
+<li>Reproductive Health</li>
+<li>Empowerment</li>
+<li>Economic Status</li>
+</ol>
+
+<p>Further description is available <a href="http://hdr.undp.org/en/content/gender-inequality-index-gii">here</a>.</p>
+
+<p>This app visualize these aspects using geoCharts offered by googleVis API. Shiny application is uploaded to <a href="https://junimamura.shinyapps.io/courseProj">shinyapps.io</a>, hosting service managed by RStudio.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Data Cleaning</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>In the <a href="http://hdr.undp.org/en/content/table-4-gender-inequality-index">dataset</a>, some data are missing, and contains meaningless rows.</li>
+</ul>
+
+<pre><code class="r"># read data, missing values are denoted by &quot;..&quot;
+genData &lt;- read.csv(&quot;./data/GenderEquality.csv&quot;, na.strings = &quot;..&quot;, stringsAsFactors = F)
+# omit non-informative rows
+genData &lt;- genData[!is.na(genData$HDI.rank),]
+</code></pre>
+
+<ul>
+<li>And more, some country name are inapproplicately contained for googleVis geoChart API.</li>
+</ul>
+
+<pre><code class="r"># e.g. Korea (Republic of) cannot be identified by GeoChart locationVar
+countryName = &quot;Korea (Republic of)&quot;
+substr(countryName, 1, str_locate(countryName, &quot; \\(&quot;)[,1] -1)
+</code></pre>
+
+<pre><code>## [1] &quot;Korea&quot;
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Example Result</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Following figure shows geographic chart rendered by my shiny app.</p>
+
+<p><img src = "./assets/img/GII.png" alt="GII_images" width="600" height="400"></img></p>
+
+<p>GII value is higher, geoCharts get darker. And some countries are written in white because values are missing.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Appendix</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>External link</p>
+
+<ul>
+<li>Dataset: Downloaded from <a href="http://hdr.undp.org/en">United Nations Development Programme</a></li>
+<li>Reference 1: Widgets example from <a href="http://shiny.rstudio.com/gallery/">Shiny Gallery</a></li>
+<li>Reference 2:<a href="http://rpackages.ianhowson.com/cran/googleVis/man/renderGvis.html">renderGVis</a> is used to render a figure generated via googleVis API</li>
+<li>Find dataset: <a href="http://www.google.com/publicdata/directory?hl=en_US&amp;dl=en_US#!">google public data</a> helped so much</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Gender Inequality'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Data Cleaning'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Example Result'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Appendix'>
+         4
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>
